@@ -1,0 +1,25 @@
+sudo: required
+services: 
+  - docker
+
+before_install:
+  - docker build -t francoser/react-test -f  ./clien/Dockerfile.dev ./client
+
+
+
+script: 
+  - docker run francoser/react-test npm test -- --coverage
+
+
+after_success:
+  - docker build -t francoser/multi-client ./client
+  - docker build -t francoser/multi-nginx ./nginx
+  - docker build -t francoser/multi-server ./server
+  - docker build -t francoser/multi-worker ./worker
+  #log in to the docker cli
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  #take those images and push them to docker hub
+  - docker push francoser/multi-client
+  - docker push francoser/multi-nginx
+  - docker push francoser/multi-server
+  - docker push francoser/multi-worker
