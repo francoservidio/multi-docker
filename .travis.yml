@@ -17,7 +17,7 @@ after_success:
   - docker build -t francoser/multi-server ./server
   - docker build -t francoser/multi-worker ./worker
   #log in to the docker cli
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" docker.io
   #take those images and push them to docker hub
   - docker push francoser/multi-client
   - docker push francoser/multi-nginx
