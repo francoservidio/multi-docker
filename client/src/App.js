@@ -19,6 +19,7 @@ function App() {
           >
             Learn React
           </a>
+          <h1 style={{fontWeight: 800, fontSize: "8rem"}}>test</h1>
           <Link to="/">Home</Link>
           <Link to="/otherpage">Other Page</Link>
         </header>
